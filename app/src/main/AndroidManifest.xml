@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zhangjie.screenshottile">
 
+    <uses-permission android:name="cyanogenmod.permission.PUBLISH_CUSTOM_TILE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -26,6 +28,12 @@
                 <action android:name="android.service.quicksettings.action.QS_TILE"/>
             </intent-filter>
         </service>
+
+        <receiver android:name=".TileReceiver" >
+            <intent-filter>
+                <action android:name="com.zhangjie.screenshottile.ACTION_TOGGLE_STATE"/>
+            </intent-filter>
+        </receiver>
 
     </application>
 
