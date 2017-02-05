@@ -37,9 +37,12 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
                 createStatusBarTiles(MainActivity.this,false);
+                Intent intent = new Intent();
+                intent.setAction(TileReceiver.ACTION_UPDATE_STATUS);
+                //intent.putExtra(C.EXTRA_ACTION, C.ACTION_START);
+                //intent.putExtra(C.EXTRA_DO_NOT_SEND_CHECK, true);
+                sendBroadcast(intent);
             }
         });
     }

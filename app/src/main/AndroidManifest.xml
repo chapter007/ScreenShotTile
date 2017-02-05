@@ -31,7 +31,7 @@
 
         <receiver android:name=".TileReceiver" >
             <intent-filter>
-                <action android:name="com.zhangjie.screenshottile.ACTION_TOGGLE_STATE"/>
+                <action android:name="com.zhangjie.screenshottile.ACTION_UPDATE_STATUS"/>
             </intent-filter>
         </receiver>
 
