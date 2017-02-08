@@ -21,17 +21,9 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".ScreenShotTileService"
-            android:icon="@drawable/screenshot"
-            android:label="截屏">
-            <intent-filter>
-                <action android:name="android.service.quicksettings.action.QS_TILE"/>
-            </intent-filter>
-        </service>
-
         <receiver android:name=".TileReceiver" >
             <intent-filter>
-                <action android:name="com.zhangjie.screenshottile.ACTION_UPDATE_STATUS"/>
+                <action android:name="com.zhangjie.screenshottile.ACTION_SCREEN_SHOT"/>
             </intent-filter>
         </receiver>
 

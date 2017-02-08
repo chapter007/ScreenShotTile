@@ -17,10 +17,7 @@ import cyanogenmod.app.CustomTile;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final int REQUEST_CODE = 0;
     public static final int CUSTOM_TILE_ID = 1;
-    public static final int CUSTOM_TILE_LIST_ID = 2;
-    public static final int CUSTOM_TILE_GRID_ID = 3;
     public static final String ACTION_TOGGLE_STATE =
             "com.zhangjie.screenshottile.ACTION_TOGGLE_STATE";
     public static final String STATE = "state";
@@ -37,11 +34,9 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createStatusBarTiles(MainActivity.this,false);
+                createStatusBarTiles(MainActivity.this, false);
                 Intent intent = new Intent();
-                intent.setAction(TileReceiver.ACTION_UPDATE_STATUS);
-                //intent.putExtra(C.EXTRA_ACTION, C.ACTION_START);
-                //intent.putExtra(C.EXTRA_DO_NOT_SEND_CHECK, true);
+                intent.setAction(TileReceiver.ACTION_SCREEN_SHOT);
                 sendBroadcast(intent);
             }
         });
@@ -49,19 +44,14 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -71,8 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void createStatusBarTiles(Context context, boolean nowStatus) {
         Intent intent = new Intent();
-        intent.setAction(TileReceiver.ACTION_UPDATE_STATUS);
-        //intent.putExtra(C.EXTRA_ACTION, nowStatus ? C.ACTION_STOP : C.ACTION_START);
+        intent.setAction(TileReceiver.ACTION_SCREEN_SHOT);
 
         CustomTile customTile = new CustomTile.Builder(context)
                 .shouldCollapsePanel(false)

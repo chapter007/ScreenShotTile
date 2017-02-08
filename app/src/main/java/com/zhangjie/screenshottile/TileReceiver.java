@@ -4,7 +4,11 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.service.quicksettings.TileService;
 import android.util.Log;
+
+import java.io.IOException;
+import java.io.OutputStream;
 
 import cyanogenmod.app.CMStatusBarManager;
 import cyanogenmod.app.CustomTile;
@@ -13,34 +17,44 @@ import cyanogenmod.app.CustomTile;
  * Created by zhangjie on 2017/2/4.
  */
 public class TileReceiver extends BroadcastReceiver {
-    public static final String ACTION_UPDATE_STATUS = "com.zhangjie.screenshottile.ACTION_UPDATE_STATUS";
+    public static final String ACTION_SCREEN_SHOT = "com.zhangjie.screenshottile.ACTION_SCREEN_SHOT";
     private static final String TAG = "zhangjie";
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.i(TAG, "onReceive: " );
-        Intent newIntent = new Intent(context,ScreenShotTileService.class);
-        newIntent.setAction("ScreenShotButton");
-        //String label = "CustomTile " + 0;
-        //newIntent.putExtra(MainActivity.STATE, 1);
-        context.startService(newIntent);
-
+        Intent newIntent = new Intent();
+        newIntent.setAction(TileReceiver.ACTION_SCREEN_SHOT);
+        adbScreenShot();
         PendingIntent pendingIntent =
                 PendingIntent.getBroadcast(context, 0,
                         newIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         CustomTile customTile = new CustomTile.Builder(context)
                 .setOnClickIntent(pendingIntent)
-                .shouldCollapsePanel(false)
-                .setContentDescription("Generic content description")
-                .setIcon(R.drawable.screenshotc)
+                .shouldCollapsePanel(true)
+                .setContentDescription("点击即可截屏")
+                .setIcon(R.drawable.screenshot)
                 .setLabel("ScreenShot")
                 .build();
 
         CMStatusBarManager.getInstance(context)
                 .publishTile(MainActivity.CUSTOM_TILE_ID, customTile);
 
+    }
 
-}
+    private void adbScreenShot() {
+        OutputStream os = null;
+        String cmd = "input keyevent 120\n";
+        try {
+            if (os == null) {
+                os = Runtime.getRuntime().exec("su").getOutputStream();
+            }
+            os.write(cmd.getBytes());
+            os.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 }
