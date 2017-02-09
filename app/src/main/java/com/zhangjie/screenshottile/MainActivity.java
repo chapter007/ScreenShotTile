@@ -1,21 +1,19 @@
 package com.zhangjie.screenshottile;
 
+import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 import cyanogenmod.app.CMStatusBarManager;
 import cyanogenmod.app.CustomTile;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     public static final int CUSTOM_TILE_ID = 1;
     public static final String ACTION_TOGGLE_STATE =
@@ -27,11 +25,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        Button add_tile= (Button) findViewById(R.id.add_tile);
+
+        add_tile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 createStatusBarTiles(MainActivity.this, false);

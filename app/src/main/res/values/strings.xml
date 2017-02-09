@@ -2,4 +2,5 @@
     <string name="app_name">ScreenShotTile</string>
     <string name="action_settings">Settings</string>
     <string name="notification_action_turn_off">关闭</string>
+    <string name="add_tile">添加</string>
 </resources>
