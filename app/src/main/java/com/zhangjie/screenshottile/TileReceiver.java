@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.service.quicksettings.TileService;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -22,9 +23,20 @@ public class TileReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        int flags=intent.getIntExtra("flags",0);
+        String action=intent.getAction();
         Intent newIntent = new Intent();
         newIntent.setAction(TileReceiver.ACTION_SCREEN_SHOT);
-        adbScreenShot();
+        newIntent.putExtra("flags",1);
+        if (action.equals(TileReceiver.ACTION_SCREEN_SHOT)&&flags==1){
+            adbScreenShot();
+        }else if(flags==0){
+            Log.i(TAG, "onReceive: add tile");
+            Toast.makeText(context,"已填加磁贴",Toast.LENGTH_SHORT).show();
+        }if (flags==0){
+            Toast.makeText(context,"已填加磁贴",Toast.LENGTH_SHORT).show();
+        }
+
         PendingIntent pendingIntent =
                 PendingIntent.getBroadcast(context, 0,
                         newIntent, PendingIntent.FLAG_UPDATE_CURRENT);

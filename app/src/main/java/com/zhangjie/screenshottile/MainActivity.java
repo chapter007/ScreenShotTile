@@ -34,6 +34,7 @@ public class MainActivity extends Activity {
                 createStatusBarTiles(MainActivity.this, false);
                 Intent intent = new Intent();
                 intent.setAction(TileReceiver.ACTION_SCREEN_SHOT);
+                intent.putExtra("flags",0);
                 sendBroadcast(intent);
             }
         });
